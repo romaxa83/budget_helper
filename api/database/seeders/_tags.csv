@@ -1,0 +1,27 @@
+1,Зарплата,coming,
+2,Премия,coming,
+3,Подарок,coming,
+4,Доход бизнеса,coming,
+5,Соц. помощь,coming,
+6,Еда,expenses,
+7,Обед,expenses,6
+8,Завтрак,expenses,6
+9,Ужин,expenses,6
+10,Снеки,expenses,6
+11,Транспорт,expenses,
+12,Маршрутка,expenses,11
+13,Такси,expenses,11
+14,Поезд,expenses,11
+15,Алкоголь,expenses,
+16,Пиво,expenses,15
+17,Водка,expenses,15
+18,Коктели,expenses,15
+19,Сигареты,expenses,
+20,Платежи,expenses,
+21,Кредит,expenses,20
+22,Комуналка,expenses,20
+22,Газ,expenses,22
+23,Свет,expenses,22
+24,Вода,expenses,22
+25,Интернет,expenses,20
+26,Мобильная связь,expenses,20

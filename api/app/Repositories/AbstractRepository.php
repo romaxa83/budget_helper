@@ -21,6 +21,11 @@ abstract class AbstractRepository
 
     abstract protected function modelClass(): string;
 
+    public function limit(): int
+    {
+        return self::DEFAULT_LIMIT;
+    }
+
     public function getQuery(): Builder
     {
         return $this->model::query();
@@ -51,11 +56,21 @@ abstract class AbstractRepository
             ->get();
     }
 
-    public function getAllPaginator(array $params, array $relations = [], $sortField = 'id', $sort = 'asc'): LengthAwarePaginator
+    public function getAllWithParams(array $params, array $relations = [], $sortField = 'id', $sort = 'asc')
     {
-        $perPage = $params['perPage'] ?? self::DEFAULT_LIMIT;
+        $perPage = $params['perPage'] ?? $this->limit();
+        $list = array_key_exists('list', $params) ? true : false;
+        $children = array_key_exists('children', $params) ? true : false;
 
-        return $this->getAllQuery($relations, $sortField, $sort)->paginate($perPage);
+        $query = $this->getAllQuery($relations, $sortField, $sort);
+
+        if($children){
+
+        }
+        if($list){
+            return $query->get();
+        }
+        return $query->paginate($perPage);
     }
 
     public function getAllWithCount(array $relations = []): Collection

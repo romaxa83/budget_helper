@@ -3,6 +3,7 @@
 namespace App\Resources\User;
 
 use App\Models\User\User;
+use App\Resources\Profile\TagResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -15,9 +16,12 @@ class UserResource extends JsonResource
         return [
             'id' => $model->id,
             'name' => $model->name,
-            'email' => $model->email,
+            'email' => $model->email->getValue(),
             'role' => $model->role,
             'phone' => $model->phone,
+            $this->mergeWhen($model->isUser(), [
+                'tag' => TagResource::collection($model->tagsParent)
+            ]),
         ];
     }
 }

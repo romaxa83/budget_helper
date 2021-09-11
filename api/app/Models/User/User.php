@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use App\Casts;
+use App\Models\Tag\Tag;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,6 +55,26 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(
+            Tag::class,
+            'user_tag_relations',
+            'user_id',
+            'tag_id'
+        );
+    }
+
+    public function tagsParent()
+    {
+        return $this->belongsToMany(
+            Tag::class,
+            'user_tag_relations',
+            'user_id',
+            'tag_id'
+        )->where('parent_id', null);
     }
 
     // переопределение метода для паспорт

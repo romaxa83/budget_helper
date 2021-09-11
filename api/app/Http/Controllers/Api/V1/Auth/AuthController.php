@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
+use App\Commands\User\SignUp;
 use App\Exceptions\Code;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Auth;
@@ -9,18 +10,21 @@ use App\Models\User\User;
 use App\Repositories\User\UserRepository;
 use App\Resources\User\UserResource;
 use App\Services\Auth\UserPassportService;
+use App\Services\User\UserService;
 
 class AuthController extends ApiController
 {
     public function __construct(
         protected UserPassportService $passportService,
-        protected UserRepository $userRepository
+        protected UserRepository $userRepository,
+        protected UserService $userService
     )
     {}
 
-    public function register()
+    public function register(Auth\SignUp $request)
     {
         try {
+            $this->userService->signup($request->all());
 
             return $this->successJsonMessage([]);
         } catch (\Exception $e){
