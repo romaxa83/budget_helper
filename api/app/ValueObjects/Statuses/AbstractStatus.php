@@ -4,6 +4,8 @@ namespace App\ValueObjects\Statuses;
 
 abstract class AbstractStatus
 {
+    protected $value;
+
     // массив типов(статусов), где ключ значение, а значение перевод
     abstract public static function list(): array;
 
@@ -24,5 +26,10 @@ abstract class AbstractStatus
     protected static function exceptionMessage(array $replace = []): string
     {
         return __('error.not valid status', $replace);
+    }
+
+    public function getValue()
+    {
+        return $this->value;
     }
 }

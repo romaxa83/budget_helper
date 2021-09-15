@@ -24,6 +24,13 @@ Route::group(['middleware' => ['auth:api']],function (){
             ->name('api.v1.profile.tag.show');
         Route::post('tags', [V1\Profile\TagController::class, 'create'])
             ->name('api.v1.profile.tag.create');
+        // Record
+        Route::get('records', [V1\Profile\RecordController::class, 'index'])
+            ->name('api.v1.profile.record.index');
+        Route::get('records/{id}', [V1\Profile\RecordController::class, 'show'])
+            ->name('api.v1.profile.record.show');
+        Route::post('records', [V1\Profile\RecordController::class, 'create'])
+            ->name('api.v1.profile.record.create');
     });
 });
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Profile\Tag;
+namespace App\Http\Requests\Profile\Record;
 
 use App\ValueObjects\Statuses\TypeRecord;
 use Illuminate\Foundation\Http\FormRequest;
@@ -15,10 +15,11 @@ class Create extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:200'],
             'type' => ['required', 'string', 'in:'. TypeRecord::COMING.','.TypeRecord::EXPENSES],
-            'parent_id' => ['nullable', 'integer', 'exists:tags,id'],
+            'amount' => ['required', 'numeric'],
+            'tags' => ['required', 'array'],
+            'desc' => ['nullable', 'string', 'max:2000'],
+            'created' => ['nullable'],
         ];
     }
 }
-

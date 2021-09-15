@@ -64,9 +64,6 @@ abstract class AbstractRepository
 
         $query = $this->getAllQuery($relations, $sortField, $sort);
 
-        if($children){
-
-        }
         if($list){
             return $query->get();
         }

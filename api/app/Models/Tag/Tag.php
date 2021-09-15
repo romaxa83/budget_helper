@@ -18,9 +18,6 @@ class Tag extends Model
 
     public $timestamps = false;
 
-    const TYPE_COMING = 'coming';
-    const TYPE_EXPENSES = 'expenses';
-
     protected $table = 'tags';
 
     protected $casts = [

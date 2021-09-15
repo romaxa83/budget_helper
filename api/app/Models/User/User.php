@@ -3,9 +3,13 @@
 namespace App\Models\User;
 
 use App\Casts;
+use App\Models\Record\Record;
 use App\Models\Tag\Tag;
+use App\ValueObjects\Statuses\TypeRecord;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -57,7 +61,7 @@ class User extends Authenticatable
         return $this->role === self::ROLE_ADMIN;
     }
 
-    public function tags()
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany(
             Tag::class,
@@ -65,6 +69,25 @@ class User extends Authenticatable
             'user_id',
             'tag_id'
         );
+    }
+
+    public function records(): HasMany
+    {
+        return $this->hasMany(
+            Record::class,
+            'user_id',
+            'id'
+        );
+    }
+
+    public function recordsComing(): HasMany
+    {
+        return $this->records()->where('type', TypeRecord::COMING);
+    }
+
+    public function recordsExpenses(): HasMany
+    {
+        return $this->records()->where('type', TypeRecord::EXPENSES);
     }
 
     public function tagsParent()
@@ -81,5 +104,19 @@ class User extends Authenticatable
     public function findForPassport($username)
     {
         return self::where('id', $username)->first();
+    }
+
+    public function getTotalExpensesAttribute()
+    {
+        return $this->recordsExpenses->sum(function (Record $model){
+            return $model->amount;
+        });
+    }
+
+    public function getTotalComingAttribute()
+    {
+        return $this->recordsComing->sum(function (Record $model){
+            return $model->amount;
+        });
     }
 }

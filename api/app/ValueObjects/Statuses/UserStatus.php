@@ -4,8 +4,6 @@ namespace App\ValueObjects\Statuses;
 
 final class UserStatus extends AbstractStatus
 {
-    private int $value;
-
     const DRAFT  = 1;
     const ACTIVE = 2;
     const BAN    = 3;
@@ -19,7 +17,6 @@ final class UserStatus extends AbstractStatus
         ];
     }
 
-
     public static function create($value): self
     {
         static::assert($value);
@@ -28,11 +25,6 @@ final class UserStatus extends AbstractStatus
         $self->value = $value;
 
         return $self;
-    }
-
-    public function getValue(): int
-    {
-        return $this->value;
     }
 
     public function isActive(): bool

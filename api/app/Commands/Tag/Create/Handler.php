@@ -13,7 +13,7 @@ class Handler
     {
         $model = new Tag();
         $model->name = $command->name;
-        $model->type = $command->type;
+        $model->type = $command->type->getValue();
         $model->is_base = $command->is_base;
         $model->parent_id = $command->parent_id;
 

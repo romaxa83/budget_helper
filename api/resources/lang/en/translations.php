@@ -7,6 +7,12 @@ return [
             'active' => 'active',
             'ban' => 'ban',
         ]
+    ],
+    'type' => [
+        'record' => [
+            'coming' => 'coming',
+            'expenses' => 'expenses',
+        ]
     ]
 ];
 
