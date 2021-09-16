@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+
+  nginx:
+    build:
+      context: ./docker
+      dockerfile: dev/nginx/Dockerfile
+    container_name: front__nginx
+    hostname: front__nginx
+    volumes:
+      - ./:/front
+      - .//storage/logs:/var/log/nginx
+    ports:
+      - 192.168.198.1:80:80
+
+  node:
+    build:
+      context: ./docker
+      dockerfile: dev/node/Dockerfile
+    container_name: front__node
+    hostname: front__node
+    volumes:
+      - ./:/front
+    working_dir: /front
+    tty: true
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.198.0/24

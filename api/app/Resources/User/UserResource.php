@@ -3,8 +3,6 @@
 namespace App\Resources\User;
 
 use App\Models\User\User;
-use App\Resources\Profile\RecordResource;
-use App\Resources\Profile\TagResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
